@@ -137,7 +137,10 @@ export function handleReply() {
       const inputText = window.prompt('输入要加密的字符串，完成后将填写到回复框中：')
 
       if (inputText) {
-        const encodedText = window.btoa(inputText)
+        // 将二进制数据转换为 Base64 编码的字符串
+        const utf8Encoder = new TextEncoder();
+        const bytes =  Array.from(utf8Encoder.encode(inputText));
+        const encodedText = window.btoa(String.fromCharCode.apply(null, bytes));
         insertTextToReplyInput(encodedText)
       }
     })
